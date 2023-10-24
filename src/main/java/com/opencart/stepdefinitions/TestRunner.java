@@ -1,4 +1,4 @@
-package com.opencart;
+package com.opencart.stepdefinitions;
 
 import com.opencart.managers.DriverManager;
 import com.opencart.managers.RandomDataManager;
