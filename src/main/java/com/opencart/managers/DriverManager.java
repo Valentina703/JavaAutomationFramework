@@ -18,7 +18,8 @@ public class DriverManager {
             case "CHROME":
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("ignore-certificate-errors");
-                driver = new ChromeDriver();
+                options.addArguments("--start-maximized");
+                driver = new ChromeDriver(options);
                 System.out.println("The Chrome Driver is initiated");
                 break;
             case "FIREFOX":
@@ -47,5 +48,11 @@ public class DriverManager {
 
     public WebDriver getDriver() {
         return driver;
+    }
+    public void tearDown(){
+        driver.close();
+        driver.quit();
+        driver = null;
+
     }
 }
