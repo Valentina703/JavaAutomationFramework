@@ -25,7 +25,7 @@ public class TestRunnerWithPageObjects {
 
         registerPage.fillInTheRegisterForm(RandomDataManager.generateFirstName(), RandomDataManager.generateLastName(), randomEmail, password, true);
         registerPage.clickTheContinueButton();
-        Thread.sleep(5000);
+        Thread.sleep(1000);
 
         DriverManager.getInstance().tearDown();
 
