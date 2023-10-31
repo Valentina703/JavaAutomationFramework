@@ -1,4 +1,4 @@
-package com.opencart.stepdefinitions;
+package com.opencart;
 
 import com.opencart.managers.DriverManager;
 import com.opencart.managers.RandomDataManager;
@@ -10,12 +10,18 @@ import org.openqa.selenium.WebDriver;
 
 public class TestRegistrationFlowWIthJUnit {
 
-    static WebDriver driver;
-    static HomePage homePage;
-    static RegisterPage registerPage;
+    WebDriver driver;
+    HomePage homePage;
+    RegisterPage registerPage;
+
     @BeforeAll
-    public static void executeThisMethodBeforeAllTests(){
+    public static void executeThisMethodBeforeAllTests() {
         System.out.println("The execution of the test suite has started");
+    }
+
+    @BeforeEach
+    public void executeTheCodeBeforeEachTest() {
+        System.out.println("The code is executed before each test case");
         driver = DriverManager.getInstance().getDriver();
         driver.get("https://andreisecuqa.host/");
         homePage = new HomePage(driver);
@@ -23,10 +29,6 @@ public class TestRegistrationFlowWIthJUnit {
         homePage.navigateToRegisterPageFromHeader();
     }
 
-    @BeforeEach
-    public void executeTheCodeBeforeEachTest() throws InterruptedException {
-        System.out.println("The code is executed before each test case");
-    }
     @Test
     @DisplayName("The registration of a new user with valid data redirects to the account page")
     public void registerWIthValidCredentialsTest() throws InterruptedException {
@@ -38,16 +40,15 @@ public class TestRegistrationFlowWIthJUnit {
         System.out.println(randomEmail);
         System.out.println(randomPassword);
 
-        registerPage.fillInTheRegisterForm(RandomDataManager.generateFirstName(),
-                RandomDataManager.generateLastName(), randomEmail, randomPassword, true);
+        registerPage.fillInTheRegisterForm(RandomDataManager.generateFirstName(), RandomDataManager.generateLastName(), randomEmail, randomPassword, true);
         registerPage.clickTheContinueButton();
+        Thread.sleep(500);
 
         String currentUrl = driver.getCurrentUrl();
-        boolean doesTheCorrectUrlContainSuccessAccountRoute = driver.getCurrentUrl().contains("route=account/success");
-
-        Assertions.assertTrue(doesTheCorrectUrlContainSuccessAccountRoute, "The current url:" + currentUrl + "contains: route=account/success");
+        boolean doesTheCorrectUrlContainSuccessAccountRoute = currentUrl.contains("route=account/success");
+        Assertions.assertTrue(doesTheCorrectUrlContainSuccessAccountRoute);
         System.out.println("The execution is over");
-        Thread.sleep(5000);
+        Thread.sleep(500);
     }
 
     @Test
@@ -65,8 +66,8 @@ public class TestRegistrationFlowWIthJUnit {
 
         String actualUrl = driver.getCurrentUrl();
         String expectedUrl = "https://andreisecuqa.host/index.php?route=account/register&language=en-gb";
-        Assertions.assertEquals(expectedUrl, actualUrl,"The urls should be egual");
-        Thread.sleep(5000);
+        Assertions.assertEquals(expectedUrl, actualUrl, "The urls should be egual");
+        Thread.sleep(500);
     }
 
     @Test
@@ -82,23 +83,21 @@ public class TestRegistrationFlowWIthJUnit {
                 RandomDataManager.generateLastName(), randomEmail, "Aa1", true);
         registerPage.clickTheContinueButton();
 
-        Thread.sleep(5000);
+        Thread.sleep(500);
 
         String actualErrorMessage = driver.findElement(By.id("error-password")).getText();
         String expectedErrorMessageForInvalidPassword = "Password must be between 4 and 20 characters!";
         Assertions.assertEquals(expectedErrorMessageForInvalidPassword, actualErrorMessage);
-
     }
 
     @AfterEach
-    public void afterEachTestCase(){
+    public void afterEachTestCase() {
         DriverManager.getInstance().tearDown();
         System.out.println("The testcase execution has been finished");
     }
 
     @AfterAll
-    public static void afterAllMethod(){
+    public static void afterAllMethod() {
         System.out.println("The test suite execution is finished");
-
     }
 }

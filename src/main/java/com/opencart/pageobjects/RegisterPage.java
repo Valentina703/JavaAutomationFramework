@@ -35,7 +35,8 @@ public class RegisterPage extends Page {
             privacyToggle.click();
         }
     }
-    public void clickTheContinueButton(){
+
+    public void clickTheContinueButton() {
         continueBtn.click();
     }
 }
