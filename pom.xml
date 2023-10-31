@@ -17,13 +17,6 @@
     </dependency>
 
     <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-api</artifactId>
-        <version>${junit-jupiter.version}</version>
-        <scope>test</scope>
-    </dependency>
-
-    <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
         <version>${selenium.version}</version>
@@ -64,10 +57,30 @@
         <artifactId>javafaker</artifactId>
         <version>${javafaker.version}</version>
     </dependency>
+
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
-        <version>5.10.0</version>
+        <version>${junit-jupiter.version}</version>
+        <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-java</artifactId>
+        <version>${cucumber.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-junit</artifactId>
+        <version>${cucumber.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.2</version>
         <scope>compile</scope>
     </dependency>
 
@@ -81,6 +94,7 @@
         <javafaker.version>1.0.2</javafaker.version>
         <junit-jupiter.version>5.10.0</junit-jupiter.version>
         <junit-jupiter-engine.version>5.10.0</junit-jupiter-engine.version>
+        <cucumber.version>7.12.1</cucumber.version>
     </properties>
 
 </project>

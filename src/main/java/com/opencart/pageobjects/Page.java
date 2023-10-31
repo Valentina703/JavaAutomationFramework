@@ -7,20 +7,20 @@ import org.openqa.selenium.support.PageFactory;
 
 public abstract class Page {
 
-    public Page(WebDriver driver){
+    public Page(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath= "//i[@class='fa-solid fa-user']")
+    @FindBy(xpath = "//i[@class='fa-solid fa-user']")
     protected WebElement myAccountIcon;
 
-    @FindBy(xpath= "//a[@class='dropdown-item'][normalize-space()='Register']")
+    @FindBy(xpath = "//a[@class='dropdown-item'][normalize-space()='Register']")
     protected WebElement registerBtn;
 
-    @FindBy(xpath= "//a[@class='dropdown-item'][normalize-space()='Login']")
+    @FindBy(xpath = "//a[@class='dropdown-item'][normalize-space()='Login']")
     protected WebElement loginBtn;
 
-    public void navigateToRegisterPageFromHeader(){
+    public void navigateToRegisterPageFromHeader() {
         myAccountIcon.click();
         registerBtn.click();
     }

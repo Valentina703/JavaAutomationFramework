@@ -30,5 +30,4 @@ public class RandomDataManager {
     public static String generatePassword() {
         return fakerObject.internet().password();
     }
-
 }
