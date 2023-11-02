@@ -8,7 +8,7 @@ import io.cucumber.junit.Cucumber;
 @CucumberOptions(
         features = "src/main/java/com/opencart/features",
         glue = "com/opencart/stepdefinitions",
-        tags = ""
+        tags = "@run"
 )
 public class CucumberTestRunner {
 
