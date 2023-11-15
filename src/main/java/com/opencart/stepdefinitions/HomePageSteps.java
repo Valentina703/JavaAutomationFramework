@@ -1,5 +1,6 @@
 package com.opencart.stepdefinitions;
 
+import com.opencart.managers.ConfigReaderManager;
 import com.opencart.managers.DriverManager;
 import com.opencart.pageobjects.HomePage;
 import io.cucumber.java.en.Given;
@@ -13,7 +14,7 @@ public class HomePageSteps {
 
     @Given("Home Page is displayed")
     public void homePageIsDisplayed() {
-        driver.get("https://andreisecuqa.host/");
+        driver.get(ConfigReaderManager.getPropertyValue("url"));
         System.out.println("The driver accesses Home Page");
     }
 

@@ -2,6 +2,7 @@ package com.opencart.stepdefinitions;
 
 import com.opencart.managers.DriverManager;
 import com.opencart.pageobjects.LoginPage;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
 import java.util.List;
@@ -13,6 +14,5 @@ public class LoginPageSteps {
     public void theLoginFormIsPopulatedWithFollowingDetails(List<String> loginCredentials) {
 
         loginPage.fillInTheLoginForm(loginCredentials.get(0), loginCredentials.get(1));
-        loginPage.clickLoginBtn();
     }
 }

@@ -9,7 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 public class DriverManager {
-    private static String webDriverType = "Chrome";
+    private static String webDriverType = ConfigReaderManager.getPropertyValue("browserType");
     private static DriverManager instance;
     private WebDriver driver;
 
@@ -56,5 +56,14 @@ public class DriverManager {
         driver.quit();
         instance = null;
         driver = null;
+    }
+
+    public void deleteCookies(){
+        driver.manage().deleteAllCookies();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
