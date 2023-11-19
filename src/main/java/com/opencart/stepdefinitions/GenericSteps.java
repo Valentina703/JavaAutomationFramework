@@ -1,13 +1,13 @@
 package com.opencart.stepdefinitions;
 
-import com.opencart.managers.ConfigReaderManager;
-import com.opencart.managers.DataSubstituteManager;
-import com.opencart.managers.DriverManager;
-import com.opencart.managers.ScrollManager;
+import com.opencart.managers.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -20,9 +20,11 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
+
 public class GenericSteps {
 
     WebDriver driver = DriverManager.getInstance().getDriver();
+    private static final Logger logger = LogManager.getLogger(GenericSteps.class);
 
     @Then("the current url contains {string} keyword")
     public void theCurrentUrlContainsRegisterKeyword(String keywordFromTheUrl) throws InterruptedException {
@@ -37,7 +39,6 @@ public class GenericSteps {
     public void endPointIsAccessed(String endPointValue) {
         driver.get(ConfigReaderManager.getPropertyValue("url") + endPointValue);
     }
-
     @Then("the following error message is displayed:")
     public void theFollowingErrorMessageIsDisplayed(List<String> errorMessagesList) throws InterruptedException {
         Thread.sleep(500);
@@ -54,12 +55,13 @@ public class GenericSteps {
             Field classField = classInstance.getDeclaredField(elementName);
             classField.setAccessible(true);
             WebElement elementToBeClicked = (WebElement) classField.get(classInstance.getDeclaredConstructor(WebDriver.class).newInstance(driver));
+            ExplicitWaitManager.waitTillTheElementIsClickable(elementToBeClicked);
             ScrollManager.scrollToTheElement(elementToBeClicked);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             wait.until(ExpectedConditions.elementToBeClickable(elementToBeClicked));
             elementToBeClicked.click();
 
-            System.out.println("The element " + elementName + " is clicked");
+            logger.log(Level.INFO, "The element " + elementName + " is clicked");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,8 +76,9 @@ public class GenericSteps {
                 classField.setAccessible(true);
                 WebElement inputElement = (WebElement) classField.get(classInstance.getConstructor(WebDriver.class).newInstance(driver));
                 fieldValue = DataSubstituteManager.subsitueString(fieldValue);
+                ExplicitWaitManager.waitTillTheElementIsVisible(inputElement);
                 inputElement.sendKeys(fieldValue);
-                System.out.println("The data [" + fieldName + "] is populated with [" + fieldValue + "]");
+                logger.log(Level.INFO, "The data [" + fieldName + "] is populated with [" + fieldValue + "]");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

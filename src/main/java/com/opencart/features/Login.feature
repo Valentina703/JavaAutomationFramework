@@ -1,6 +1,5 @@
 @run
 Feature: Login Related Test Cases
-
   Scenario Outline: An error message is displayed when using invalid <affectedAttribute> for login flow
     Given "/index.php?route=account/login" end point is accessed
     When the following form from "LoginPage" is populated as follows:
@@ -11,7 +10,7 @@ Feature: Login Related Test Cases
 #      | <password> |
     And the "loginBtn" from "LoginPage" is clicked
     Then the following error message is displayed:
-      | Warning: No match for E-Mail Address and/or Password. |
+      | "Warning: No match for E-Mail Address and/or Password." |
     Examples:
       | email           | password     | affectedAttribute |
       | johns@yahoo.com | Password123! | password          |
